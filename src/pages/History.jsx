@@ -8,7 +8,7 @@ const History = () => {
             <h1 className='text-4xl capitalize  py-10 text-center font-bold'>
                view history
             </h1>
-            {data && data.length > 0 ? (<div className='flex flex-col items-center m-5 lg:flex-row'>
+            {data && data.length > 0 ? (<div className='flex flex-col items-center m-5 lg:flex-row flex-wrap'>
                 {data.map((data, index) => (
                     <div key={index + data.name} className='m-5' >
                         <section className="w-[300px] h-[250px] bg-white shadow-lg p-9 rounded-lg lg:w-[400px]">
