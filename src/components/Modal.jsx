@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
 
-const Modal = ({ data, currTime, handleClose, loading }) => {
+const Modal = ({ data, currTime, handleClose, loading ,error}) => {
     return (
         <div className='h-screen w-full fixed top-0 left-0 z-50 bg-black opacity-90 flex items-center justify-center'>
 
 
             <section className="w-[300px] h-[300px] bg-white shadow-lg p-9 rounded-lg mx-auto lg:w-[500px]">
-                {!loading ?
+                {error ? <h1 className="text-center text-red-600 text-3xl font-bold capitalize mt-20 ">Not found or not a city</h1> :
+                !loading ?
                     <>
                         <FaTimes className="float-right text-xl text-red-600 relative -top-4 cursor-pointer" onClick={handleClose} />
                         <h2 className="text-3xl font-semibold">{data ? data.name : null}, {data && data.sys ? data.sys.country : null}</h2>
@@ -20,7 +21,7 @@ const Modal = ({ data, currTime, handleClose, loading }) => {
                             <p className="ml-2">{data.wind.speed.toFixed()} MPH</p>
                         ) : null}</h2>
                     </>
-                    : <h2 className="text-3xl font-semibold capitalize mt-20 text-center"> loading...</h2>}
+                    : <h2 className="text-3xl font-bold capitalize mt-20 text-center"> loading...</h2>}
 
             </section>
         </div>

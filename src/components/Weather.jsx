@@ -11,6 +11,7 @@ function Weather() {
     const [data, setData] = useState({});
     const [location, setLocation] = useState("");
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const timezone = data.timezone;
     //needs to be converted in minutes
     const timezoneInMinutes = timezone / 60;
@@ -25,9 +26,11 @@ function Weather() {
         if (location !== "") {
             setLoading(true);
             setShow(true);
+           
             setTimeout(async () => {
                 await axios.get(url).then((response) => {
-                    console.log(response)
+                    console.log('error', response.status)
+        
                     if (response.status === 200) {
                         setLoading(false);
                         setData(response.data);
@@ -37,7 +40,16 @@ function Weather() {
                         history.push(response.data);
                         localStorage.setItem("location", JSON.stringify(history));
                     }
-                });
+                }).catch((error) => {
+                    setError(true);
+                    setLoading(false);
+                    console.log('error', error)
+                    setTimeout(() => {
+                        setShow(false);
+                        setError(false);
+                    }, 2000);
+
+                })
             }, 1000);
             setLocation("");
         }
@@ -80,6 +92,7 @@ function Weather() {
                     currTime={currTime}
                     handleClose={handleClose}
                     loading={loading}
+                    error={error}
                 />
                 : null}
         </div>
